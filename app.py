@@ -4,6 +4,32 @@
 tareas = []
 
 
+def pedir_numero_tarea():
+    try:
+        numero = int(input("Número de la tarea: "))
+    except ValueError:
+        print("Debes escribir un número.")
+        return None
+    if numero < 1 or numero > len(tareas):
+        print("Esa tarea no existe.")
+        return None
+    return numero - 1
+
+
+def completar_tarea():
+    indice = pedir_numero_tarea()
+    if indice is not None:
+        tareas[indice]["completada"] = True
+        print("Tarea marcada como completada.")
+
+
+def eliminar_tarea():
+    indice = pedir_numero_tarea()
+    if indice is not None:
+        eliminada = tareas.pop(indice)
+        print(f"Tarea eliminada: {eliminada['titulo']}")
+
+
 def mostrar_menu():
     print("\n===== GESTOR DE TAREAS =====")
     print("1. Agregar tarea")
@@ -17,7 +43,11 @@ def main():
     while True:
         mostrar_menu()
         opcion = input("Elige una opción: ")
-        if opcion == "5":
+        if opcion == "3":
+            completar_tarea()
+        elif opcion == "4":
+            eliminar_tarea()
+        elif opcion == "5":
             print("Saliendo del gestor de tareas...")
             break
         else:
